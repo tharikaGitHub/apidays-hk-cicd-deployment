@@ -20,20 +20,6 @@ pipeline {
                 daysToKeepStr: '16', 
                 numToKeepStr: '10'
         )
-        properties([
-                pipelineTriggers([
-                [$class: 'GenericTrigger',
-                    genericVariables: [
-                    [ key: 'name', value: '$.data.name' ],
-                    [ key: 'location', value: '$.data.path' ]
-                    ],
-                    token: '123',
-                    printContributedVariables: true,
-                    printPostContent: true,
-
-                ]
-                ])
-            ])
     }
 
     stages {
