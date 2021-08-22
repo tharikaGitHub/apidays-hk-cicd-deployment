@@ -28,7 +28,7 @@ pipeline {
                 steps {
                     sh '''#!/bin/bash
                     envs=$(apictl get envs --format "{{.Name}}")
-                    apictl set --vcs-source-repo-path ../CICD-Dev
+                    apictl set --vcs-source-repo-path ../CICD-Dev_dev
                     apictl set --vcs-deployment-repo-path ./
                     if [ -z "$envs" ]; 
                     then 
