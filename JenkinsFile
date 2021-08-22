@@ -72,8 +72,10 @@ pipeline {
             stage('Run tests') {
                 steps {
                     sh '''#!/bin/bash 
-                    node -v
-                    whereis newman     
+                    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+                    nvm --version
+                    nvm install node
+                    npm install -g newman     
                     testfiles=\$(find /var/lib/jenkins/workspace/CICD-Dev_dev/tests -iname "*.sh")
                     for i in \$testfiles ; do bash \$i; done
                     '''
