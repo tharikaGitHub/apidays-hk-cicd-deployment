@@ -1,0 +1,76 @@
+node {
+
+    properties([
+        pipelineTriggers([
+        [$class: 'GenericTrigger',
+            genericVariables: [
+            [ key: 'name', value: '$.data.name' ],
+            [ key: 'location', value: '$.data.path' ]
+            ],
+            token: '123',
+            printContributedVariables: true,
+            printPostContent: true,
+
+        ]
+        ])
+    ]
+    )
+    
+    stage('Setup Environment for APICTL') {
+        sh '''#!/bin/bash
+        envs=$(apictl get envs --format "{{.Name}}")
+        apictl set --vcs-source-repo-path ../CICD-Dev
+        apictl set --vcs-deployment-repo-path ./
+        if [ -z "$envs" ]; 
+        then 
+            echo "No environment configured. Setting dev environment.."
+            apictl add env dev --apim https://${APIM_HOST}:9443  -k
+            echo "Setting prod environment.."
+            apictl add env prod --apim https://${APIM_HOST}:9444 -k
+        else
+            echo "Environments :"$envs
+            if [[ $envs != *"dev"* ]]; then
+            echo "Dev environment is not configured. Setting dev environment.."
+            apictl add env dev --apim https://${APIM_DEV_HOST}:9443 -k
+            fi
+            if [[ $envs != *"prod"* ]]; then
+            echo "Prod environment is not configured. Setting prod environment.."
+            apictl add env prod --apim https://${APIM_HOST}:9444 -k
+            fi
+        fi
+        '''
+    }
+
+    stage('Deploy to Development Environment') {
+            
+        sh '''#!/bin/bash
+        # download the artifact from the artifact repository
+        cd /var/lib/jenkins/.wso2apictl/exported/apis
+        wget https://${ARTIFACTORY_HOST}/artifactory/${ARTIFACTORY_REPO}/$location
+        # login to the dev environment
+        apictl login dev -u admin -p admin -k
+        # deploy artifact to dev environment
+        apictl vcs deploy -e dev -k
+        '''
+    }
+
+    stage('Deploy APIs To "Prod" Environment') {
+            steps {
+                sh '''
+                apictl login prod -u admin -p admin -k
+                apictl vcs deploy -e prod -k
+                '''
+            }
+        }
+    }
+
+    post { 
+        always { 
+            sh '''
+            apictl logout dev -k
+            apictl logout prod -k
+            '''
+        }
+    }
+     
+}
