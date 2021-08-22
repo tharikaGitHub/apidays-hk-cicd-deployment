@@ -26,7 +26,8 @@ pipeline {
         
             stage('Setup Environment for APICTL') {
                 steps {
-                    sh '''#!/bin/bash\
+                    sh '''#!/bin/bash
+                    echo "setting up environment"
                     ls -al
                     envs=$(apictl get envs --format "{{.Name}}")
                     apictl set --vcs-source-repo-path /var/lib/jenkins/workspace/CICD-Dev_dev
