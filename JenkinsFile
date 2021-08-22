@@ -75,7 +75,6 @@ pipeline {
                     testfiles=\$(find /var/lib/jenkins/workspace/CICD-Dev_dev/tests -iname "*.sh")
                     for i in \$testfiles ; do bash \$i; done
                     '''
-                    }
                 }    
             }
 
