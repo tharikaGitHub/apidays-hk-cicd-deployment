@@ -69,6 +69,16 @@ pipeline {
                 }
             }
 
+            stage('Run tests') {
+                steps {
+                    sh '''#!/bin/bash      
+                    testfiles=\$(find /var/lib/jenkins/workspace/CICD-Dev_dev/tests -iname "*.sh")
+                    for i in \$testfiles ; do bash \$i; done
+                    '''
+                    }
+                }    
+            }
+
             stage('Deploy artifacts to prod environment') {
                 steps {
                     sh '''
