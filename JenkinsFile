@@ -4,6 +4,17 @@ pipeline {
             label 'master'
         }
     }
+    triggers {
+        GenericTrigger(
+        genericVariables: [
+            [ key: 'name', value: '$.data.name' ],
+            [ key: 'location', value: '$.data.path' ]
+            ],
+            token: '123',
+            printContributedVariables: true,
+            printPostContent: true,
+        )
+    }
     options {
         buildDiscarder logRotator( 
                 daysToKeepStr: '16', 
