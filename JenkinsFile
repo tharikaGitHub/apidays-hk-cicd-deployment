@@ -30,7 +30,7 @@ pipeline {
                     echo "Current directory"
                     pwd
                     envs=$(apictl get envs --format "{{.Name}}")
-                    apictl set --vcs-source-repo-path ../CICD-Dev_dev
+                    apictl set --vcs-source-repo-path /var/lib/jenkins/workspace/CICD-Dev_dev
                     apictl set --vcs-deployment-repo-path ./
                     if [ -z "$envs" ]; 
                     then 
