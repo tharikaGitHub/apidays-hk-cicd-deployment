@@ -21,6 +21,7 @@ pipeline {
                 numToKeepStr: '10'
         )
     }
+    tools {nodejs "Node"}
 
     stages {
         
@@ -72,8 +73,6 @@ pipeline {
             stage('Run tests') {
                 steps {
                     sh '''#!/bin/bash 
-                    export NVM_DIR="/var/lib/jenkins/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && "$NVM_DIR/nvm.sh"
                     nvm --version
                     nvm install node
                     npm install -g newman     
