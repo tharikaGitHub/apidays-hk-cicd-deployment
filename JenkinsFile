@@ -1,7 +1,15 @@
 pipeline {
     agent {
         node {
-            properties([
+            label 'master'
+        }
+    }
+    options {
+        buildDiscarder logRotator( 
+                daysToKeepStr: '16', 
+                numToKeepStr: '10'
+        )
+        properties([
                 pipelineTriggers([
                 [$class: 'GenericTrigger',
                     genericVariables: [
@@ -15,13 +23,6 @@ pipeline {
                 ]
                 ])
             ])
-        }
-    }
-    options {
-        buildDiscarder logRotator( 
-                    daysToKeepStr: '16', 
-                    numToKeepStr: '10'
-            )
     }
 
     stages {
