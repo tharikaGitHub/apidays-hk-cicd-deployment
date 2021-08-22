@@ -72,7 +72,8 @@ pipeline {
             stage('Run tests') {
                 steps {
                     sh '''#!/bin/bash 
-                    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+                    export NVM_DIR="/var/lib/jenkins/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                     nvm --version
                     nvm install node
                     npm install -g newman     
