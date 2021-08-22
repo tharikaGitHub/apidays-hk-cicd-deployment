@@ -3,9 +3,9 @@ environments:
       configs:
           endpoints:
               production: 
-                url : 'https://dev.env.com:3000'
+                url : 'https://run.mocky.io/v3/4e7d7e7a-ee52-472b-8bc6-c6ba001c0e48'
               sandbox: 
-                url : 'https://dev.env.sand.com:3000'
+                url : 'https://run.mocky.io/v3/4e7d7e7a-ee52-472b-8bc6-c6ba001c0e48'
           deploymentEnvironments:
               - displayOnDevportal: true
                 deploymentEnvironment: Default
