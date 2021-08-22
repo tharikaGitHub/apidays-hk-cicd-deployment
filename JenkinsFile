@@ -27,6 +27,8 @@ pipeline {
             stage('Setup Environment for APICTL') {
                 steps {
                     sh '''#!/bin/bash
+                    echo "Current directory"
+                    pwd
                     envs=$(apictl get envs --format "{{.Name}}")
                     apictl set --vcs-source-repo-path ../CICD-Dev_dev
                     apictl set --vcs-deployment-repo-path ./
