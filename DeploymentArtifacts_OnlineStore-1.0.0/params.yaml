@@ -5,7 +5,7 @@ environments:
               production: 
                 url : 'https://run.mocky.io/v3/4e7d7e7a-ee52-472b-8bc6-c6ba001c0e48'
               sandbox: 
-                url : 'https://run.mocky.io/v3/4e7d7e7a-ee52-472b-8bc6-c6ba001c0e48'
+                url : 'https://run.mocky.io/v3/4e7d7e7a-ee52-472b-8bc6-c6ba001c0e48/users'
           deploymentEnvironments:
               - displayOnDevportal: true
                 deploymentEnvironment: Default
