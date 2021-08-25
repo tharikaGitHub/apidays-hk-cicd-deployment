@@ -66,6 +66,9 @@ pipeline {
 
                     # Deploy artifacts to dev environment
                     apictl vcs deploy -e dev -k
+
+                    # Wait for deployment before running tests
+                    sleep 6
                     '''
                 }
             }
